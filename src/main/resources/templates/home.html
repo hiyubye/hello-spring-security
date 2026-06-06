@@ -66,6 +66,7 @@
                         <a class="nav-link" th:href="@{/admin/dashboard}">관리자</a>
                     </li>
                 </ul>
+                <a th:href="@{/user/password}" class="btn btn-outline-info btn-sm px-3 text-white">비밀번호 변경</a>
                 <form th:action="@{/logout}" method="post" class="d-flex">
                     <button class="btn btn-outline-light btn-sm px-3">로그아웃</button>
                 </form>

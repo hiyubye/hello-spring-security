@@ -9,6 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    long countByStockEquals(int stock);
+
     @Query("SELECT p FROM Product p WHERE p.name LIKE %:keyword%")
     Page<Product> findByNameContaining(@Param("keyword") String keyword,
             Pageable pageable);
