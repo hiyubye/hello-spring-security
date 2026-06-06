@@ -19,7 +19,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    // 전체 목록 페이징 (Pageable → findAll에 그대로 전달)
+    // 전체 목록 페이징
     @Transactional(readOnly = true)
     public Page<Product> getProducts(Pageable pageable) {
         return productRepository.findAll(pageable);
@@ -47,6 +47,20 @@ public class ProductService {
         Product product = new Product(
                 dto.getName(), dto.getPrice(), dto.getDescription(), dto.getStock());
         return productRepository.save(product);
+    }
+
+    @Transactional
+    public Product updateProduct(Long id, ProductDto dto) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("상품을 찾을 수 없습니다: " + id));
+
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setStock(dto.getStock());
+        if (dto.getDescription() != null) {
+            product.setDescription(dto.getDescription());
+        }
+        return product;
     }
 
     @Transactional
